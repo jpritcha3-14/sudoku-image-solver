@@ -46,4 +46,4 @@ if __name__ == "__main__":
     ap.add_argument('files', nargs='+')
     args = vars(ap.parse_args())
     print(args['files'])
-    ingest(args['files'] ,args['outdir'][0]) 
+    ingest(args['files'], args['outdir'][0]) 
