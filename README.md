@@ -16,6 +16,7 @@ It can be installed on Ubuntu and it's derivatives [by following the instruction
 	- To be implemented
 
 ## Next Steps
-- Create a script to ingest Sudoku images and create examples of each number using current functions for corner selection and square parsing.
+- ~~Create a script to ingest Sudoku images and create examples of each number using current functions for corner selection and square parsing.~~
+- Find, ingest, and classify digit images to train a learning model.
 - Train a supervised learning model to correctly identify numbers.
 - Use the trained model to classify numbers from new puzzles.
