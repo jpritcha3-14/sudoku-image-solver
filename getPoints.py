@@ -39,6 +39,10 @@ def getPoints(img, numPoints):
 
 def getSquare(img, offset=0):
     # Sort 4 srcPts into row, column order
+    scale = max(img.shape)/500
+    if scale > 1:
+        img = cv2.resize(img, (int(img.shape[0]/scale), int(img.shape[1]/scale)))
+    img = cv2.copyMakeBorder(img, 15, 15, 15, 15, cv2.BORDER_CONSTANT, None, (255, 255, 255)) 
     pts = _getPoints(img, 4)
     pts.sort(key = lambda x: x[0]**2 + x[1]**2)
     pts2 = sorted(pts[1:3], key = lambda x: x[1])
@@ -49,7 +53,7 @@ def getSquare(img, offset=0):
     for i, p in enumerate(pts2):
         p[0] = p[0] + (offset if i % 2 else -offset)
         p[1] = p[1] + (offset if i > 1 else -offset)
-    return tuple(map(tuple, pts2))
+    return tuple(map(tuple, pts2)), img
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()

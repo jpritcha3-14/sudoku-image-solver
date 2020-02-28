@@ -35,10 +35,10 @@ def parseSquares(src, template, offset=0):
     squareLocs = [[] for _ in range(9)]
     curx, cury = 0, 0
     img = src.copy()
-    """
+    """ 
     cv2.namedWindow("image")
     cv2.imshow("image", img)
-    """
+    """ 
     for i in range(9):
         for j in range(9):
             if i == 0 and j == 0:
@@ -68,7 +68,7 @@ def parseSquares(src, template, offset=0):
                 y += cury - 10
 
             squareLocs[i].append((x, y))
-    """
+    """ 
             cv2.rectangle(img, (x-3, y-3), (x+3, y+3), color=(0, 0, 255))
 
             plt.subplot(9, 9, i * 9 + j + 1)
@@ -78,13 +78,14 @@ def parseSquares(src, template, offset=0):
     plt.show()
 
     while True:
+        cv2.imshow("image", img)
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
-    """
+    """ 
     return squareLocs
 
             
-def parseNums(src, squares):
+def parseSumsNums(src, squares):
 
     # Read in number masks and threshold to binary representation
     nums = []
@@ -119,7 +120,7 @@ def parseNums(src, squares):
             else:
                 parsed[r].append(0)
 
-    return parsed
+    return (sums, parsed)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
@@ -130,10 +131,10 @@ if __name__ == "__main__":
     offset = 5
 
     src = cv2.imread(args["image"]) 
-    srcPts = getSquare(src, offset)
+    srcPts, src = getSquare(src, offset)
     tformed = coordTransform(src, srcPts, 306 + 2*offset)
     tformed = tformed[:, :, np.newaxis] 
     tformed = np.concatenate((tformed, tformed.copy(), tformed.copy()), axis=2)
     parsedSquares = parseSquares(tformed, createSquareMask(34, 2), offset)
-    parsedNums = parseNums(tformed, parsedSquares)
+    _, parsedNums = parseSumsNums(tformed, parsedSquares)
     print(np.array(parsedNums))

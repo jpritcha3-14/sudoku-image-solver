@@ -16,8 +16,6 @@ def coordTransform(src, srcPts, sz):
     # Blur and threshold image 
     grayed = cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
     blured = cv2.GaussianBlur(grayed, (5,5), 0)
-    #blured = cv2.medianBlur(grayed, 3)
-    #threshed = cv2.adaptiveThreshold(
     _, threshed = cv2.threshold(blured, 0, 255, cv2.THRESH_TOZERO)
     threshed = cv2.adaptiveThreshold(threshed,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,11,2)
     return threshed
@@ -31,7 +29,7 @@ if __name__ == "__main__":
 
     sz, offset = 300, 5
     src = cv2.imread(args["image"]) 
-    srcPts = getSquare(src, offset)
+    srcPts, src = getSquare(src, offset)
     dst = coordTransform(src, srcPts, sz + 2*offset)
 
     plt.subplot(121), plt.imshow(src), plt.title("Input")
