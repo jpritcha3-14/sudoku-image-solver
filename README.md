@@ -4,9 +4,9 @@ This project aims to take any picture of a sudoku puzzle, extract its contents u
 ![Selected corners, solved puzzle](https://github.com/jpritcha3-14/sudoku-image-solver/blob/master/result.png)
 
 ## Software Used
-anaconda / conda - Used to set up isolated environments with specific packages. Can be [downloaded here](https://www.anaconda.com/distribution/). 
-scikit Learn - Included in the base conda environment.
-openCV - Can be installed from within the conda environment using `pip install opencv-python`
+- anaconda / conda - Used to set up isolated environments with specific packages. Can be [downloaded here](https://www.anaconda.com/distribution/). 
+- scikit Learn - Included in the base conda environment.
+- openCV - Can be installed from within the conda environment using `pip install opencv-python`
 
 ## Goals and Progress
 - **Parse individual squares from a Sudoku puzzle, accounting for skew in camera angle and warping in the paper.**
