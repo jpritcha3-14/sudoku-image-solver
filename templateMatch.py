@@ -1,13 +1,15 @@
 import cv2
 import argparse
+import joblib
 from collections import namedtuple
 
+from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
 import numpy as np 
 
 from coordTransform import coordTransform
 from getPoints import getSquare
-
+from solvePuzzle import solvePuzzle
 
 def createSquareMask(sz, t):
     """
@@ -96,6 +98,7 @@ def parseSumsNums(src, squares):
 
     # Pass each mask over each square.  Attempt to determine it's contents
     sqsz = 34 
+    clf = joblib.load('classifier.joblib')
     tot_sum = ((sqsz-6)**2)*255
     parsed = [[] for _ in range(9)]
     sums = [[] for _ in range(9)]
@@ -105,9 +108,14 @@ def parseSumsNums(src, squares):
             rend = rstart + sqsz
             cstart = squares[r][c][0] 
             cend = cstart + sqsz
-            s = src[rstart+4:rend-3, cstart+4:cend-3] # crop out edges
-            sums[r].append(s.size * 255 - s.sum()) # Invert the sum so filled squares are higher
+            s = src[rstart:rend, cstart:cend, 0].flatten() # feature for classifier
+            print(s.shape)
+            s_cropped = src[rstart+4:rend-3, cstart+4:cend-3] # crop out edges to predict empty squares
+            sums[r].append(s_cropped.size * 255 - s_cropped.sum()) # Invert the sum so filled squares are higher
             if sums[r][-1] > 50000:
+                print(clf.predict_proba([s]))
+                parsed[r].append(clf.predict([s])[0])
+                """
                 maxval, maxnum = 0, 0
                 for n in range(9):
                     res = cv2.matchTemplate(src[rstart:rend, cstart:cend], 
@@ -117,6 +125,8 @@ def parseSumsNums(src, squares):
                         maxval = curmax
                         maxnum = n + 1
                 parsed[r].append(maxnum)
+                """
+
             else:
                 parsed[r].append(0)
 
@@ -137,4 +147,7 @@ if __name__ == "__main__":
     tformed = np.concatenate((tformed, tformed.copy(), tformed.copy()), axis=2)
     parsedSquares = parseSquares(tformed, createSquareMask(34, 2), offset)
     _, parsedNums = parseSumsNums(tformed, parsedSquares)
-    print(np.array(parsedNums))
+    p = np.array(parsedNums)
+    print(p)
+    if solvePuzzle(p):
+        print(p)

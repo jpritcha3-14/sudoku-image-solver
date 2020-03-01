@@ -4,7 +4,7 @@ import os
 import cv2
 import numpy as np
 
-from collections import Counter
+from joblib import dump, load
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.ensemble import RandomForestClassifier
 
@@ -27,8 +27,9 @@ def trainModel(X, y):
     clf = RandomForestClassifier(n_estimators=200, n_jobs=4, verbose=2)
     clf.fit(X_train, y_train) 
     print(clf.score(X_test, y_test))
-    scores = cross_val_score(clf, X, y, cv=5)
-    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    #scores = cross_val_score(clf, X, y, cv=5)
+    #print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    dump(clf, 'classifier.joblib')
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
