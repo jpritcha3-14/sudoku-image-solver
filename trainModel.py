@@ -24,12 +24,15 @@ def prepareInput(imgPath):
 
 def trainModel(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
-    clf = RandomForestClassifier(n_estimators=200, n_jobs=4, verbose=2)
+    clf = RandomForestClassifier(n_estimators=200, verbose=1)
     clf.fit(X_train, y_train) 
     print(clf.score(X_test, y_test))
+
+    clfall = RandomForestClassifier(n_estimators=200)
+    clfall.fit(X, y)
     #scores = cross_val_score(clf, X, y, cv=5)
     #print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
-    dump(clf, 'classifier.joblib')
+    dump(clfall, 'classifier.joblib')
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()

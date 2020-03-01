@@ -18,7 +18,7 @@ def coordTransform(src, srcPts, sz):
     blured = cv2.GaussianBlur(grayed, (5,5), 0)
     _, threshed = cv2.threshold(blured, 0, 255, cv2.THRESH_TOZERO)
     threshed = cv2.adaptiveThreshold(threshed,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,11,2)
-    return threshed
+    return dst, threshed
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
