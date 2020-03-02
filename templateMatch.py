@@ -1,7 +1,6 @@
 import cv2
 import argparse
 import joblib
-from collections import namedtuple
 
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
@@ -9,7 +8,7 @@ import numpy as np
 
 from coordTransform import coordTransform
 from getPoints import getSquare
-from solvePuzzle import solvePuzzle
+from puzzleSolver import solve
 
 def createSquareMask(sz, t):
     """
@@ -136,7 +135,7 @@ if __name__ == "__main__":
     _, parsedNums = parseSumsNums(tformed, parsedSquares)
     p = np.array(parsedNums)
     print(p)
-    s = solvePuzzle(p)
+    s = solve(p)
     print(s)
 
     cv2.namedWindow("Solution")

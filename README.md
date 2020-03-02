@@ -17,7 +17,8 @@ This project aims to take any picture of a sudoku puzzle, extract its contents u
     - Classifier (random forest) has been trained on ~900 numbers parsed from images gathered from the internet.  Cross validated accuracy for digit recogintion is around 98%.  Will continue to gather images to improve classifier.
 
 - **Solve the Sudoku puzzle**
-	- In progress! The solvePuzzle.py script solves a Sudoku puzzle represented as numpy ndarray using a brute force backtracking method.  This method is not viable for less constrained puzzles and takes too long.  Logic needs improvemnet to solve more difficult puzzles.
+	- ~~The solvePuzzle.py script solves a Sudoku puzzle represented as numpy ndarray using a brute force backtracking method.  This method is not viable for less constrained puzzles and takes too long.  Logic needs improvemnet to solve more difficult puzzles.~~
+    - Complete! Adapted code from [Peter Norvig's excellent post on the problem](https://norvig.com/sudoku.html) to rewrite the Sudoku solver.  The new algorithm uses a recursive search in conjunction with constraint propogation to limit the scope of the solution search.
 
 - **Overlay the solution to the puzzle on the original image**
 	- Complete!
@@ -28,6 +29,6 @@ This project aims to take any picture of a sudoku puzzle, extract its contents u
 - ~~Train a supervised learning model to correctly identify numbers.~~
 - ~~Use the trained model to classify numbers from new puzzles.~~
 - ~~Overlay the results of solving the sudoku puzzle on the original image.~~
-- Improve puzzle solver logic to work with less constrained (harder) puzzles
+- ~~Improve puzzle solver logic to work with less constrained (harder) puzzles~~
 - Clean up and comment code, run a linter. 
 - Continue to gather and ingest sudoku images to improve the classifier.
