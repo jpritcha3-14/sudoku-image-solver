@@ -8,6 +8,16 @@ This project aims to take any picture of a sudoku puzzle, extract its contents u
 - scikit Learn - Included in the base conda environment.
 - openCV - Can be installed from within the conda environment using `pip install opencv-python`
 
+## How To Use
+Once the environment is set up correctly, you can run the program on a sudoku image using the default classifier by running:
+
+`python3 sudokuImageSolver.py -i <path to image>`
+
+Select the 4 corners of the sudoku puzzle in the pop up and press enter.  Then press q to quit the program.
+
+To train a classifier on your own sudoku images, read the [HOWTO.md file](https://github.com/jpritcha3-14/sudoku-image-solver/blob/master/modelTraining/HOWTO.md)
+in the modelTraining directoty.  
+
 ## Goals and Progress
 - **Parse individual squares from a Sudoku puzzle, accounting for skew in camera angle and warping in the paper.**
 	- Complete!  User selects the 4 corners of the puzzle with mouse clicks. These points are then used to transform the puzzle to a square of a standard size.  Matching against a template square is used to find the location of all squares while accounting for slight curves in the paper.
