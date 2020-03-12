@@ -31,16 +31,19 @@ if __name__ == "__main__":
     p = np.array(parsedNums)
     print(p)
     s = solve(p)
-    print(s)
+    if isinstance(s, bool):
+        print('Could not solve puzzle, check parsed output')
+    else:
+        print(s)
 
-    cv2.namedWindow("Solution")
+        cv2.namedWindow("Solution")
 
-    for rowidx, row  in enumerate(parsedSquares):
-        for colidx, sq  in enumerate(row):
-            if p[rowidx, colidx] == 0:
-                warped = cv2.putText(warped, str(s[rowidx, colidx]), (sq[0] + 5, sq[1] + 28), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+        for rowidx, row  in enumerate(parsedSquares):
+            for colidx, sq  in enumerate(row):
+                if p[rowidx, colidx] == 0:
+                    warped = cv2.putText(warped, str(s[rowidx, colidx]), (sq[0] + 5, sq[1] + 28), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
-    cv2.imshow("Solution", warped)
-    while True:
-        if cv2.waitKey(10) & 0xFF == ord('q'):
-            break
+        cv2.imshow("Solution", warped)
+        while True:
+            if cv2.waitKey(10) & 0xFF == ord('q'):
+                break

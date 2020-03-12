@@ -108,6 +108,8 @@ def some(seq):
     return False
 
 def formatOutput(values):
+    if not values:
+        return False
     return np.array([int(x[1]) for x in sorted((s, d) for s, d in values.items())]).reshape(9,9)
 
 def solve(grid):
